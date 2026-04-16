@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SBS Feed</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <h1 class="site-title">SBS</h1>
+      <div class="header-meta">
+        <span id="last-updated"></span>
+        <span id="next-refresh"></span>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Featured / Hero item -->
+    <section id="hero" class="hero" hidden></section>
+
+    <!-- Content grid -->
+    <section class="content-section">
+      <div id="feed-grid" class="feed-grid"></div>
+    </section>
+
+    <!-- Loading state -->
+    <div id="loading" class="loading">
+      <div class="spinner"></div>
+      <p>Loading feed content&hellip;</p>
+    </div>
+
+    <!-- Error state -->
+    <div id="error" class="error-state" hidden>
+      <p class="error-msg">Unable to load feed content.</p>
+      <button onclick="loadFeed(true)" class="retry-btn">Retry</button>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <p>&copy; SBS &mdash; Content refreshes automatically every 24 hours</p>
+  </footer>
+
+  <!-- Modal for video/detail view -->
+  <div id="modal" class="modal" hidden>
+    <div class="modal-backdrop" onclick="closeModal()"></div>
+    <div class="modal-content">
+      <button class="modal-close" onclick="closeModal()" aria-label="Close">&times;</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>

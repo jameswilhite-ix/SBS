@@ -1,0 +1,14 @@
+{
+  "name": "sbs-mrss-feed-ui",
+  "version": "1.0.0",
+  "description": "UI for displaying SBS MRSS feed content with 24-hour auto-refresh",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "xml2js": "^0.6.2"
+  }
+}
