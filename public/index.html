@@ -3,47 +3,91 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SBS Feed</title>
+  <title>SBS Content Schedule</title>
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
   <header class="site-header">
     <div class="header-inner">
-      <h1 class="site-title">SBS</h1>
-      <div class="header-meta">
-        <span id="last-updated"></span>
-        <span id="next-refresh"></span>
+      <div class="header-left">
+        <h1 class="site-title">SBS Content Schedule</h1>
+        <span class="header-subtitle">MRSS Feed &rarr; Index Exchange</span>
+      </div>
+      <div class="header-right">
+        <span id="item-count" class="badge"></span>
+        <span id="last-updated" class="meta-text"></span>
+        <span id="next-refresh" class="meta-text"></span>
+        <button id="refresh-btn" class="btn btn-sm" onclick="loadFeed(true)">Refresh Now</button>
       </div>
     </div>
   </header>
 
-  <main>
-    <!-- Featured / Hero item -->
-    <section id="hero" class="hero" hidden></section>
+  <!-- Series targeting panel -->
+  <section class="targeting-panel">
+    <div class="targeting-inner">
+      <div class="targeting-header">
+        <h2>Index Exchange Series Targeting</h2>
+        <p class="targeting-desc">Content series values to pass in outbound requests. These are the <code>series</code> key-values detected in the current feed.</p>
+      </div>
+      <div id="series-tags" class="series-tags"></div>
+    </div>
+  </section>
 
-    <!-- Content grid -->
-    <section class="content-section">
+  <!-- Filter bar -->
+  <nav class="filter-bar">
+    <div class="filter-inner">
+      <div class="filter-group">
+        <label>Filter by Series:</label>
+        <div id="series-filters" class="filter-chips">
+          <button class="chip active" data-series="all">All Content</button>
+        </div>
+      </div>
+      <div class="filter-group">
+        <label>Search:</label>
+        <input type="text" id="search-input" class="search-input" placeholder="Search titles...">
+      </div>
+      <div class="filter-group">
+        <label>View:</label>
+        <div class="view-toggle">
+          <button class="chip active" data-view="schedule" onclick="setView('schedule')">Schedule</button>
+          <button class="chip" data-view="grid" onclick="setView('grid')">Grid</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Schedule view (default) -->
+    <section id="schedule-view" class="schedule-view">
+      <div id="schedule-list" class="schedule-list"></div>
+    </section>
+
+    <!-- Grid view -->
+    <section id="grid-view" class="grid-view" hidden>
       <div id="feed-grid" class="feed-grid"></div>
     </section>
 
-    <!-- Loading state -->
+    <!-- Loading -->
     <div id="loading" class="loading">
       <div class="spinner"></div>
       <p>Loading feed content&hellip;</p>
     </div>
 
-    <!-- Error state -->
+    <!-- Error -->
     <div id="error" class="error-state" hidden>
       <p class="error-msg">Unable to load feed content.</p>
-      <button onclick="loadFeed(true)" class="retry-btn">Retry</button>
+      <button onclick="loadFeed(true)" class="btn">Retry</button>
     </div>
   </main>
 
   <footer class="site-footer">
-    <p>&copy; SBS &mdash; Content refreshes automatically every 24 hours</p>
+    <div class="footer-inner">
+      <p>Feed source: <code>feed.theplatform.com/f/Bgtm9B/sbs-telaria</code></p>
+      <p>Auto-refreshes every 24 hours &middot; <a href="/api/feed" target="_blank">JSON API</a> &middot; <a href="/api/feed/raw" target="_blank">Raw XML</a> &middot; <a href="/api/feed/debug" target="_blank">Debug</a></p>
+    </div>
   </footer>
 
-  <!-- Modal for video/detail view -->
+  <!-- Detail modal -->
   <div id="modal" class="modal" hidden>
     <div class="modal-backdrop" onclick="closeModal()"></div>
     <div class="modal-content">
